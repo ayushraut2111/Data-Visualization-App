@@ -122,15 +122,12 @@
         .tabl tbody tr :nth-of-type(even){
             background-color: #eae5f9;
         }
-        /* .tabl tbody td {
-            border-right: 2px solid red;
-        } */
         
     </style>
 </head>
 <body>
     <div class="fltr">
-        <h1 class="head">Visualtization Dashboard</h1>
+        <h1 class="head">Visualization Dashboard</h1>
         <br><br>
         <div class="chart" >
             <div style="width: 10cm;" class="citem">
@@ -204,14 +201,14 @@
 <div class="dynamic">
     <h1 class="head">Please Enter Input to Filter Data</h1>
     <form id="form1">
-        <input class="form1input" type="text"  placeholder="Topic" name="topic">
-        <input class="form1input" type="text"  placeholder="Region" name="region">
-        <input class="form1input" type="text"  placeholder="End Year" name="end_year">
-        <input class="form1input" type="text"  placeholder="Sector" name="sector">
-        <input class="form1input" type="text"  placeholder="Pestle" name="pestle">
-        <input class="form1input" type="text"  placeholder="Source" name="source">
         <input class="form1input" type="text"  placeholder="Country" name="country">
+        <input class="form1input" type="text"  placeholder="Region" name="region">
+        <input class="form1input" type="text"  placeholder="Sector" name="sector">
+        <input class="form1input" type="text"  placeholder="Topic" name="topic">
         <input class="form1input" type="text"  placeholder="Start year" name="start_year">
+        <input class="form1input" type="text"  placeholder="End Year" name="end_year">
+        <input class="form1input" type="text"  placeholder="Source" name="source">
+        <input class="form1input" type="text"  placeholder="Pestle" name="pestle">
         <button class="form1button" type="submit">Filter</button>
     </form>
     <br><br>
@@ -238,11 +235,6 @@
 <script>
 document.getElementById("form1").addEventListener('submit', (e) => {
     e.preventDefault();
-    // document.getElementById("cnt1").innerHTML=""
-    // document.getElementById("cnt2").innerHTML=""
-    // document.getElementById("cnt3").innerHTML=""
-    // document.getElementById("cnt4").innerHTML=""
-    // document.getElementById("cnt5").innerHTML=""
     document.getElementById("tablebody").innerHTML=""
     const form = document.getElementById("form1");
   const fd = new FormData(form);
@@ -267,7 +259,7 @@ let ctl1 = document.getElementById('myChart3');
          l1=new Chart(ctl1, {
           type: 'doughnut',
           data: {
-            labels: ['country','remaining'],
+            labels: ['country','others'],
             datasets: [{
               label: 'No. of Data',
               backgroundColor: [ "blue","#B10DC9"],
@@ -289,7 +281,7 @@ let ctl2 = document.getElementById('myChart4');
          l2=new Chart(ctl2, {
           type: 'doughnut',
           data: {
-            labels: ['region','remaining'],
+            labels: ['region','others'],
             datasets: [{
               label: 'No. of Data',
               
@@ -335,6 +327,7 @@ let cts2 = document.getElementById('bar2');
             labels: ['World','Western Africa','Western Asia','Northern America','southern Asia','Europe'],
             datasets: [{
                 backgroundColor: ['red','green','blue','yellow','orange','brown'],
+                label:'No. of Data',
                 borderColor:['black'],
               data: [129,13,44,132,40,10],
             }]
@@ -352,7 +345,7 @@ let ctx = document.getElementById('myChart');
          p=new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ['data','remaining'],
+            labels: ['data','others'],
             datasets: [{
               label: 'No. of Data',
             backgroundColor: [ "#001f3f","#B10DC9"],
@@ -372,7 +365,7 @@ let ctx1 = document.getElementById('myChart1');
          p1=new Chart(ctx1, {
           type: 'pie',
           data: {
-            labels: ['intesity','remaining'],
+            labels: ['intesity','others'],
             datasets: [{
               label: 'No. of Data',
             backgroundColor: ["#85144b","#39CCCC"],
@@ -392,7 +385,7 @@ let ctx2 = document.getElementById('myChart2');
          p2=new Chart(ctx2, {
           type: 'pie',
           data: {
-            labels: ['topic','remaining'],
+            labels: ['topic','others'],
             datasets: [{
               label: 'No. of Data',
 
@@ -421,18 +414,18 @@ fetch(`http://127.0.0.1:8000/range/?end_year=${obj.end}&start_year=${obj.start}`
     {
         document.getElementById("d1").innerHTML="Data Not Found"
     }
-    let remaining=310-data.length;
-    console.log(remaining)
+    let others=310-data.length;
+    console.log(others)
     let ctx = document.getElementById('myChart');
          p=new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ['data','remaining'],
+            labels: ['data','others'],
             datasets: [{
               label: 'No. of Data',
               backgroundColor: [ "#001f3f","#B10DC9"],
 
-              data: [x,remaining],
+              data: [x,others],
             }]
           },
           options: {
@@ -460,17 +453,17 @@ fetch(`http://127.0.0.1:8000/intensity/?start=${obj.int1}&end=${obj.int2}`).then
     {
         document.getElementById("d2").innerHTML="Data Not Found"
     }
-    let remaining=957-data.length;
-    console.log(remaining)
+    let others=957-data.length;
+    console.log(others)
     let ctx1 = document.getElementById('myChart1');
          p1=new Chart(ctx1, {
           type: 'pie',
           data: {
-            labels: ['entered intensity','remaining'],
+            labels: ['entered intensity','others'],
             datasets: [{
               label: 'No. of Data',
               backgroundColor: ["#85144b","#39CCCC"],
-              data: [x,remaining],
+              data: [x,others],
             }]
           },
           options: {
@@ -498,16 +491,16 @@ fetch(`http://127.0.0.1:8000/details/?topic=${obj.topic}`).then(val=>val.json())
     {
         document.getElementById("d3").innerHTML="Data Not Found"
     }
-    let remaining=995-data.length;
-    console.log(remaining)
+    let others=995-data.length;
+    console.log(others)
     let ctx2 = document.getElementById('myChart2');
          p2=new Chart(ctx2, {
           type: 'pie',
           data: {
-            labels: [obj.topic,'remaining'],
+            labels: [obj.topic,'others'],
             datasets: [{
               label: 'No. of Data',
-              data: [x,remaining],
+              data: [x,others],
             }]
           },
           options: {
@@ -536,17 +529,17 @@ fetch(`http://127.0.0.1:8000/details/?country=${obj.country}`).then(val=>val.jso
     {
         document.getElementById("d4").innerHTML="Data Not Found"
     }
-    let remaining=995-data.length;
-    console.log(remaining)
+    let others=995-data.length;
+    console.log(others)
     let ctl1 = document.getElementById('myChart3');
          l1=new Chart(ctl1, {
           type: 'doughnut',
           data: {
-            labels: [obj.country,'remaining'],
+            labels: [obj.country,'others'],
             datasets: [{
               label: 'No. of Data',
               backgroundColor: [ "blue","#B10DC9"],
-              data: [x,remaining],
+              data: [x,others],
             }]
           },
           options: {
@@ -574,18 +567,18 @@ fetch(`http://127.0.0.1:8000/details/?region=${obj.region}`).then(val=>val.json(
     {
         document.getElementById("d5").innerHTML="Data Not Found"
     }
-    let remaining=995-data.length;
-    console.log(remaining)
+    let others=995-data.length;
+    console.log(others)
     let ctl2 = document.getElementById('myChart4');
          l2=new Chart(ctl2, {
           type: 'doughnut',
           data: {
-            labels: [obj.region,'remaining'],
+            labels: [obj.region,'others'],
             datasets: [{
               label: 'No. of Data',
               backgroundColor: [ "orange","green"],
 
-              data: [x,remaining],
+              data: [x,others],
             }]
           },
           options: {
